@@ -1,0 +1,37 @@
+﻿@page "/data"
+@using Engine;
+@using System.Data;
+@inject DataService Source
+
+<PageTitle>Meta Data</PageTitle>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Value</th>
+            <th>Error</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (DataRow row in Source.GetData().Rows)
+        {
+            <tr>
+                <td style="@("background-color:rgb(252, " + row[0] + ", 5)")">@row[0]</td>
+                <td class="@row[1]"></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+
+    // This is needed to make this page refresh when the change hasn't been triggered from this page
+    protected override void OnInitialized()
+    {
+        Source.DataChanged += (o, e) =>
+        {
+            InvokeAsync(() => StateHasChanged());
+        };
+    }
+
+}

@@ -1,0 +1,21 @@
+﻿@page "/control"
+@using Engine;
+@using System.Data;
+@inject DataService Source
+
+<PageTitle>Control</PageTitle>
+
+<p>Enter Number of Rows To Generate</p>
+<input type="text" @bind-value="number" />
+
+<button class="btn btn-primary" @onclick="RefreshData">Refresh Data Data</button>
+
+@code {
+
+    private int number = 0;
+
+    private void RefreshData()
+    {
+        Source.RefreshData(number);
+    }
+}
